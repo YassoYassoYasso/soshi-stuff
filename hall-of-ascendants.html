@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Hall of Ascendants — Project Ascendancy</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Hanken+Grotesk:wght@400;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-tint": "#ffb3ad",
+                        "surface-container-highest": "#353535",
+                        "on-primary-fixed": "#410003",
+                        "on-secondary-fixed": "#261a00",
+                        "tertiary-fixed": "#ffdbd1",
+                        "surface": "#131313",
+                        "secondary-fixed-dim": "#fbbc00",
+                        "secondary": "#ffe2ab",
+                        "surface-container-lowest": "#0e0e0e",
+                        "inverse-on-surface": "#313030",
+                        "error": "#ffb4ab",
+                        "on-background": "#e5e2e1",
+                        "on-tertiary": "#601400",
+                        "surface-container-high": "#2a2a2a",
+                        "tertiary-fixed-dim": "#ffb5a0",
+                        "on-tertiary-container": "#ffe1da",
+                        "tertiary-container": "#c23200",
+                        "tertiary": "#ffb5a0",
+                        "outline-variant": "#5d3f3d",
+                        "surface-variant": "#353535",
+                        "background": "#131313",
+                        "on-error-container": "#ffdad6",
+                        "error-container": "#93000a",
+                        "on-surface": "#e5e2e1",
+                        "on-surface-variant": "#e6bdb9",
+                        "on-tertiary-fixed": "#3b0900",
+                        "inverse-surface": "#e5e2e1",
+                        "inverse-primary": "#c00019",
+                        "primary": "#ffb3ad",
+                        "primary-fixed-dim": "#ffb3ad",
+                        "surface-bright": "#393939",
+                        "on-primary-fixed-variant": "#930010",
+                        "surface-dim": "#131313",
+                        "surface-container-low": "#1c1b1b",
+                        "secondary-container": "#ffbf00",
+                        "on-secondary-fixed-variant": "#5c4300",
+                        "secondary-fixed": "#ffdfa0",
+                        "on-primary-container": "#ffe1de",
+                        "outline": "#ad8884",
+                        "on-error": "#690005",
+                        "on-secondary": "#402d00",
+                        "on-secondary-container": "#6d5000",
+                        "on-primary": "#680008",
+                        "on-tertiary-fixed-variant": "#872000",
+                        "primary-fixed": "#ffdad6",
+                        "surface-container": "#20201f",
+                        "primary-container": "#cf1020"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "safe-margin": "2rem",
+                        "stack-md": "1.5rem",
+                        "stack-xs": "0.5rem",
+                        "grid-gutter": "2rem",
+                        "stack-lg": "3rem"
+                    },
+                    "fontFamily": {
+                        "display-xl": ["Anton"],
+                        "data-label": ["JetBrains Mono"],
+                        "headline-lg": ["Anton"],
+                        "body-md": ["Hanken Grotesk"],
+                        "headline-lg-mobile": ["Anton"],
+                        "button-text": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "display-xl": ["64px", {"lineHeight": "1.1", "letterSpacing": "0.02em", "fontWeight": "400"}],
+                        "data-label": ["12px", {"lineHeight": "1.2", "letterSpacing": "0.1em", "fontWeight": "500"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                        "button-text": ["14px", {"lineHeight": "1", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root{
+            --void:#0e0e0e;
+            --ember-red:#cf1020;
+            --ember-orange:#ff6a1a;
+            --gold:#ffbf00;
+            --gold-dim:#caa000;
+            --eu-glow:#8fd6ff;
+            --crack-gradient:linear-gradient(90deg, transparent, var(--gold) 15%, var(--ember-red) 50%, var(--gold) 85%, transparent);
+        }
+
+        body {
+            background-color: #131313;
+            background-image:
+                radial-gradient(circle at 50% 0%, rgba(255,191,0,0.06) 0%, rgba(19,19,19,0) 45%),
+                radial-gradient(circle at 50% 100%, rgba(207,16,32,0.08) 0%, rgba(19,19,19,1) 60%);
+            color: #e5e2e1;
+        }
+
+        .ember { position:fixed; background:rgba(255,191,0,0.55); width:3px; height:3px; border-radius:50%; pointer-events:none; animation:float 12s infinite linear; }
+        .ember.ember-red { background:rgba(255,69,0,0.55); }
+        @keyframes float { 0%{transform:translateY(100vh) translateX(0); opacity:0;} 10%{opacity:1;} 90%{opacity:1;} 100%{transform:translateY(-10vh) translateX(24px); opacity:0;} }
+
+        .back-link{
+            font-family:'JetBrains Mono', monospace; font-size:12px; letter-spacing:0.15em; text-transform:uppercase;
+            color:#e6bdb9; opacity:0.75; text-decoration:none; transition:opacity .25s ease, color .25s ease;
+        }
+        .back-link:hover{ opacity:1; color:var(--gold); }
+
+        .eyebrow{
+            font-family:'JetBrains Mono', monospace; font-size:12px; letter-spacing:0.4em; text-transform:uppercase;
+            color:var(--gold-dim); opacity:0.9;
+        }
+
+        .hero-title{
+            font-family:'Anton', sans-serif;
+            font-size:clamp(44px, 9vw, 104px);
+            letter-spacing:0.02em;
+            text-transform:uppercase;
+            line-height:1.05;
+            background:linear-gradient(180deg, #fff4e6 0%, var(--gold) 42%, var(--ember-red) 100%);
+            -webkit-background-clip:text;
+            background-clip:text;
+            color:transparent;
+            filter:drop-shadow(0 0 30px rgba(255,110,30,0.3));
+        }
+
+        .hero-sub{
+            font-family:'Hanken Grotesk', sans-serif;
+            color:#c9c2c0; max-width:34rem; margin:1.25rem auto 0; opacity:0.85;
+        }
+
+        .hero-crackline{ width:min(640px, 80%); height:2px; background:var(--crack-gradient); margin:2rem auto; opacity:0.7; }
+
+        .hero-rays{
+            position:absolute; top:-160px; left:50%; transform:translateX(-50%);
+            width:900px; height:900px; max-width:220vw; max-height:220vw;
+            background:repeating-conic-gradient(from 0deg, rgba(255,191,0,0.06) 0deg 4deg, transparent 4deg 14deg);
+            border-radius:50%;
+            -webkit-mask-image:radial-gradient(circle, black 25%, transparent 70%);
+            mask-image:radial-gradient(circle, black 25%, transparent 70%);
+            opacity:0.7; pointer-events:none; z-index:-1;
+            animation:rays-spin 160s linear infinite;
+        }
+        @keyframes rays-spin{ to{ transform:translateX(-50%) rotate(360deg); } }
+
+        .hero-sigil{ width:52px; height:52px; margin:0 auto 0.75rem; filter:drop-shadow(0 0 10px rgba(255,191,0,0.5)); }
+        .hero-sigil svg{ width:100%; height:100%; }
+        .hero-sigil rect{ fill:none; stroke:var(--gold); stroke-width:2; }
+        .hero-sigil path{ fill:var(--ember-red); }
+
+        .season-block{ padding:4.5rem 0; position:relative; opacity:0; transform:translateY(24px); transition:opacity .8s ease, transform .8s ease; }
+        .season-block.is-visible{ opacity:1; transform:translateY(0); }
+        .season-block + .season-block{ border-top:1px solid rgba(255,191,0,0.08); }
+
+        .season-divider{ display:flex; align-items:center; gap:1.5rem; margin-bottom:2.5rem; }
+        .season-crackline{ flex:1; height:2px; background:var(--crack-gradient); opacity:0.6; }
+        .season-sigil{ width:44px; height:44px; flex:none; filter:drop-shadow(0 0 8px rgba(255,191,0,0.45)); }
+        .season-sigil svg{ width:100%; height:100%; }
+        .season-sigil rect{ fill:none; stroke:var(--gold); stroke-width:2; opacity:0.85; }
+        .season-sigil path{ fill:var(--ember-red); }
+
+        .season-title-block{ text-align:center; margin-bottom:3.5rem; }
+        .season-eyebrow{
+            display:block; font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:0.5em;
+            text-transform:uppercase; color:var(--gold-dim); opacity:0.9; margin-bottom:0.6rem;
+        }
+        .season-label{
+            font-family:'Anton', sans-serif;
+            font-size:clamp(32px, 5vw, 54px);
+            letter-spacing:0.03em; text-transform:uppercase; line-height:1.1;
+            background:linear-gradient(180deg, #fff4e6 0%, var(--gold) 45%, var(--ember-red) 110%);
+            -webkit-background-clip:text; background-clip:text; color:transparent;
+            filter:drop-shadow(0 0 20px rgba(255,110,30,0.25));
+        }
+        .season-subtitle{
+            font-family:'Hanken Grotesk', sans-serif; font-style:italic; color:#c9c2c0;
+            opacity:0.75; margin-top:0.6rem; font-size:14px;
+        }
+
+        .regions-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:3rem; }
+        .region-block{ display:flex; flex-direction:column; gap:1.5rem; }
+        .region-header{ display:flex; align-items:center; gap:0.75rem; }
+        .region-flame{ width:9px; height:9px; border-radius:50%; background:var(--flame-color, var(--ember-red)); box-shadow:0 0 10px 3px var(--flame-color, var(--ember-red)); }
+        .region-name{ font-family:'JetBrains Mono', monospace; font-size:13px; letter-spacing:0.3em; text-transform:uppercase; color:#e6bdb9; }
+        .region-cards{ display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:1.5rem; }
+
+        .champion-card{
+            --accent:var(--ember-red);
+            --accent-light:#ffd9a0;
+            --accent-soft:rgba(207,16,32,0.25);
+            position:relative;
+            background:linear-gradient(160deg, rgba(32,27,26,0.92), rgba(12,12,12,0.96));
+            border:1px solid rgba(255,191,0,0.15);
+            border-radius:0.75rem;
+            padding:2.75rem 1.75rem 2.25rem;
+            text-align:center;
+            overflow:hidden;
+            transition:transform .4s ease, box-shadow .4s ease, border-color .4s ease;
+            box-shadow:0 8px 30px rgba(0,0,0,0.5), inset 0 0 20px rgba(0,0,0,0.4);
+        }
+        .champion-card.region-eu{ --accent:var(--eu-glow); --accent-light:#eaf7ff; --accent-soft:rgba(143,214,255,0.22); }
+        .champion-card::before{
+            content:''; position:absolute; inset:0;
+            background:radial-gradient(circle at 50% 0%, var(--accent-soft), transparent 60%);
+            opacity:0.65; pointer-events:none;
+        }
+        .champion-card:hover{
+            transform:translateY(-6px);
+            border-color:var(--accent);
+            box-shadow:0 14px 40px rgba(0,0,0,0.6), 0 0 30px var(--accent-soft), inset 0 0 25px var(--accent-soft);
+        }
+
+        .corner{ position:absolute; width:16px; height:16px; opacity:0.5; pointer-events:none; }
+        .corner-tl{ top:12px; left:12px; border-top:2px solid var(--gold); border-left:2px solid var(--gold); }
+        .corner-tr{ top:12px; right:12px; border-top:2px solid var(--gold); border-right:2px solid var(--gold); }
+        .corner-bl{ bottom:12px; left:12px; border-bottom:2px solid var(--gold); border-left:2px solid var(--gold); }
+        .corner-br{ bottom:12px; right:12px; border-bottom:2px solid var(--gold); border-right:2px solid var(--gold); }
+
+        .crest{ position:relative; width:108px; height:122px; margin:0 auto 0.5rem; }
+        .crest-glow{
+            position:absolute; inset:-20px; border-radius:50%;
+            background:radial-gradient(circle, var(--accent-soft), transparent 70%);
+            filter:blur(3px);
+            animation:crest-breathe 4.5s ease-in-out infinite;
+        }
+        .crest-shield-outer{
+            position:absolute; inset:0;
+            clip-path:polygon(50% 0%, 100% 18%, 100% 68%, 50% 100%, 0% 68%, 0% 18%);
+            background:linear-gradient(160deg, var(--accent), rgba(0,0,0,0.15));
+        }
+        .crest-shield{
+            position:absolute; inset:4px;
+            clip-path:polygon(50% 0%, 100% 18%, 100% 68%, 50% 100%, 0% 68%, 0% 18%);
+            overflow:hidden; background:#0e0e0e;
+            box-shadow:inset 0 0 16px rgba(0,0,0,0.75);
+        }
+        .crest-shield img{ position:relative; width:100%; height:100%; object-fit:cover; }
+        .crest-flame{ position:absolute; top:-18px; left:50%; transform:translateX(-50%); width:72px; height:auto; filter:drop-shadow(0 0 6px var(--accent)); }
+        .crest-flame path{ fill:var(--accent); }
+        @keyframes crest-breathe{ 0%,100%{ opacity:.5; transform:scale(1); } 50%{ opacity:.85; transform:scale(1.05); } }
+
+        .rank-ribbon{
+            display:inline-block; margin:0 auto 1.1rem; padding:0.4rem 1.4rem;
+            font-family:'JetBrains Mono', monospace; font-size:10px; letter-spacing:0.32em; text-transform:uppercase;
+            color:#1a1310; font-weight:700;
+            background:linear-gradient(135deg, var(--accent), var(--accent-light));
+            clip-path:polygon(6% 0%, 94% 0%, 100% 50%, 94% 100%, 6% 100%, 0% 50%);
+            box-shadow:0 4px 14px rgba(0,0,0,0.45);
+        }
+
+        .champion-name{ font-family:'Anton', sans-serif; font-size:26px; letter-spacing:0.02em; text-transform:uppercase; color:#f2ece9; }
+        .champion-teammate{ font-family:'Hanken Grotesk', sans-serif; font-size:13px; color:#b8b2b0; margin-top:0.35rem; }
+        .champion-teammate b{ color:var(--accent); font-weight:700; }
+        .champion-title{
+            margin-top:0.9rem; padding-top:0.9rem; border-top:1px solid rgba(255,255,255,0.07);
+            font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#8f8886;
+        }
+        .card-pedestal{
+            position:absolute; left:18%; right:18%; bottom:0; height:3px;
+            background:linear-gradient(90deg, transparent, var(--accent), transparent);
+            filter:blur(1px); opacity:0.85;
+        }
+
+        @media (prefers-reduced-motion: reduce){
+            .crest-glow{ animation:none; }
+            .hero-rays{ animation:none; }
+            .season-block{ transition:none; opacity:1; transform:none; }
+            .ember{ animation:none; display:none; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col font-body-md text-on-surface antialiased overflow-x-hidden relative">
+    <div class="fixed inset-0 pointer-events-none z-0" id="embers-container"></div>
+
+    <nav class="relative z-20 w-full max-w-7xl mx-auto px-safe-margin pt-8 flex items-center justify-between">
+        <a class="back-link" href="roster.html">&larr; Back to Roster</a>
+        <span class="font-data-label text-data-label uppercase text-tertiary opacity-60 tracking-widest">Project Ascendancy</span>
+    </nav>
+
+    <header class="relative z-10 text-center px-safe-margin pt-stack-lg pb-stack-md">
+        <div class="hero-rays" aria-hidden="true"></div>
+        <p class="eyebrow">Etched In The Forge</p>
+        <div class="hero-sigil" aria-hidden="true">
+            <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                <rect x="30" y="4" width="36" height="36" transform="rotate(45 30 30)"/>
+                <path d="M30 18 C24 26 24 32 30 42 C36 32 36 26 30 18 Z"/>
+            </svg>
+        </div>
+        <h1 class="hero-title">Hall of Ascendants</h1>
+        <div class="hero-crackline" aria-hidden="true"></div>
+        <p class="hero-sub mx-auto">Those who rose through the flame, season after season, and were never forgotten.</p>
+    </header>
+
+    <main class="relative z-10 w-full max-w-7xl mx-auto px-safe-margin pb-stack-lg" id="seasons-root"></main>
+
+    <footer class="bg-surface-container-lowest w-full py-12 mt-stack-lg border-t border-outline-variant/10 z-10 flex flex-col items-center justify-center gap-stack-xs px-safe-margin relative">
+        <h2 class="font-headline-lg text-headline-lg text-primary tracking-tighter uppercase mb-4">PROJECT ASCENDANCY</h2>
+        <nav class="flex flex-wrap justify-center gap-6 mb-6">
+            <a class="font-data-label text-data-label uppercase text-on-surface-variant hover:text-primary transition-colors opacity-80 hover:opacity-100" href="roster.html">Roster</a>
+            <a class="font-data-label text-data-label uppercase text-secondary-container hover:text-primary transition-colors opacity-90 hover:opacity-100" href="hall-of-ascendants.html">Hall of Ascendants</a>
+            <a class="font-data-label text-data-label uppercase text-on-surface-variant hover:text-primary transition-colors opacity-80 hover:opacity-100" href="#" target="_blank">Discord</a>
+            <a class="font-data-label text-data-label uppercase text-on-surface-variant hover:text-primary transition-colors opacity-80 hover:opacity-100" href="https://www.youtube.com/@Soshi_kun" target="_blank">Youtube</a>
+            <a class="font-data-label text-data-label uppercase text-on-surface-variant hover:text-primary transition-colors opacity-80 hover:opacity-100" href="#" target="_blank">TikTok</a>
+        </nav>
+        <p class="font-data-label text-data-label uppercase text-on-surface-variant opacity-60">Soshi's Realm.</p>
+    </footer>
+
+    <script>
+        /*The idea here is to make a constant and each item inside the constant is going to be a season and in each season its going to be an array of players who are winners, both in TWO arrays of NA and EU*/
+        const hallOfAscendants = [
+            {
+                season: 0,
+                subtitle: "The First Ascension",
+                regions: {
+                    NA: [
+                        { name: "Mugi", teammate: "Riot", title: "Duo Champions — Bakugo / Dabi v1", avatar: "mugis0.png" },
+                        { name: "Riot", teammate: "Mugi", title: "Duo Champions — Dabi v1 / Bakugo", avatar: "RiotS0.png" }
+                    ],
+                    EU: [
+                        { name: "Ashborn", teammate: "Corvid", title: "Duo Champions — Hawks / Kurogiri", avatar: "images/ashborn.jpg" },
+                        { name: "Corvid", teammate: "Ashborn", title: "Duo Champions — Hawks / Kurogiri", avatar: "images/corvid.jpg" }
+                    ]
+                }
+            },
+            {
+                season: 1,
+                subtitle: "The Second Ascension",
+                regions: {
+                    NA: [
+                        { name: "Ferrow", teammate: "Quill", title: "Duo Champions — Dabi / Shigaraki", avatar: "images/ferrow.jpg" },
+                        { name: "Quill", teammate: "Ferrow", title: "Duo Champions — Dabi / Shigaraki", avatar: "images/quill.jpg" }
+                    ],
+                    EU: [
+                        { name: "Wraithe", teammate: "Halcyon", title: "Duo Champions — Stain v2 / Todoroki", avatar: "images/wraithe.jpg" },
+                        { name: "Halcyon", teammate: "Wraithe", title: "Duo Champions — Stain v2 / Todoroki", avatar: "images/halcyon.jpg" }
+                    ]
+                }
+            }
+
+            /* The fuckass template in general is:
+            ,{
+                season: 2,
+                subtitle: "The Third Ascension",
+                regions: {
+                    NA: [
+                        { name: "", teammate: "", title: "", avatar: "" },
+                        { name: "", teammate: "", title: "", avatar: "" }
+                    ],
+                    EU: [
+                        { name: "", teammate: "", title: "", avatar: "" },
+                        { name: "", teammate: "", title: "", avatar: "" }
+                    ]
+                }
+            }
+            */
+        ];
+
+        const REGION_ACCENTS = {
+            NA: { flame: "#ff5a2e", cardClass: "" },
+            EU: { flame: "#8fd6ff", cardClass: "region-eu" }
+        };
+
+        const SIGIL_SVG = `
+            <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                <rect x="30" y="4" width="36" height="36" transform="rotate(45 30 30)"/>
+                <path d="M30 18 C24 26 24 32 30 42 C36 32 36 26 30 18 Z"/>
+            </svg>
+        `;
+
+        function championCard(champ, regionKey) {
+            const accent = REGION_ACCENTS[regionKey] || REGION_ACCENTS.NA;
+            return `
+                <div class="champion-card ${accent.cardClass}">
+                    <span class="corner corner-tl" aria-hidden="true"></span>
+                    <span class="corner corner-tr" aria-hidden="true"></span>
+                    <span class="corner corner-bl" aria-hidden="true"></span>
+                    <span class="corner corner-br" aria-hidden="true"></span>
+
+                    <div class="crest">
+                        <span class="crest-glow" aria-hidden="true"></span>
+                        <span class="crest-shield-outer" aria-hidden="true"></span>
+                        <div class="crest-shield">
+                            <img src="${champ.avatar || 'images/default-avatar.jpg'}" alt="${champ.name} portrait" />
+                        </div>
+                        <svg class="crest-flame" viewBox="0 0 120 50" aria-hidden="true">
+                            <path d="M60 50 C42 30 30 34 8 8 C30 16 46 10 60 30 C74 10 90 16 112 8 C90 34 78 30 60 50 Z" />
+                        </svg>
+                    </div>
+
+                    <div class="rank-ribbon">Champion</div>
+                    <h3 class="champion-name">${champ.name}</h3>
+                    <p class="champion-teammate">Paired with <b>${champ.teammate || 'Unknown'}</b></p>
+                    <p class="champion-title">${champ.title || ''}</p>
+                    <span class="card-pedestal" aria-hidden="true"></span>
+                </div>
+            `;
+        }
+
+        function regionBlock(regionKey, champions) {
+            const accent = REGION_ACCENTS[regionKey] || REGION_ACCENTS.NA;
+            return `
+                <div class="region-block">
+                    <div class="region-header">
+                        <span class="region-flame" style="--flame-color:${accent.flame}"></span>
+                        <span class="region-name">${regionKey} Region</span>
+                    </div>
+                    <div class="region-cards">
+                        ${champions.map(c => championCard(c, regionKey)).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function seasonBlock(seasonData) {
+            const regionKeys = Object.keys(seasonData.regions);
+            const el = document.createElement('section');
+            el.className = 'season-block';
+            el.innerHTML = `
+                <div class="season-divider" aria-hidden="true">
+                    <span class="season-crackline"></span>
+                    <span class="season-sigil">${SIGIL_SVG}</span>
+                    <span class="season-crackline"></span>
+                </div>
+                <div class="season-title-block">
+                    <span class="season-eyebrow">Chapter ${String(seasonData.season).padStart(2, '0')}</span>
+                    <h2 class="season-label">Season ${seasonData.season} Winners</h2>
+                    <p class="season-subtitle">${seasonData.subtitle || ''}</p>
+                </div>
+                <div class="regions-grid">
+                    ${regionKeys.map(key => regionBlock(key, seasonData.regions[key])).join('')}
+                </div>
+            `;
+            return el;
+        }
+
+        const root = document.getElementById('seasons-root');
+        hallOfAscendants
+            .slice()
+            .sort((a, b) => b.season - a.season)
+            .forEach(seasonData => root.appendChild(seasonBlock(seasonData)));
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+        document.querySelectorAll('.season-block').forEach(block => observer.observe(block));
+
+        const embersContainer = document.getElementById('embers-container');
+        for (let i = 0; i < 26; i++) {
+            const ember = document.createElement('div');
+            ember.className = 'ember' + (Math.random() > 0.5 ? ' ember-red' : '');
+            ember.style.left = `${Math.random() * 100}vw`;
+            ember.style.animationDuration = `${6 + Math.random() * 10}s`;
+            ember.style.animationDelay = `${Math.random() * 6}s`;
+            ember.style.opacity = Math.random() * 0.5 + 0.15;
+            embersContainer.appendChild(ember);
+        }
+    </script>
+</body>
+</html>

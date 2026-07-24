@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Project Ascendancy - EU</title>
+    <title>Project Ascendancy</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Hanken+Grotesk:wght@400;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
@@ -101,32 +101,34 @@
             color: #e5e2e1;
         }
         
-        .eu-card {
-            background: rgba(20, 26, 33, 0.8);
+        .molten-card {
+            background: rgba(26, 26, 26, 0.8);
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(61, 80, 93, 0.5);
-            box-shadow: inset 0 0 10px rgba(16, 137, 207, 0.2), 0 4px 20px rgba(0,0,0,0.5);
+            border: 1px solid rgba(93, 63, 61, 0.5);
+            box-shadow: inset 0 0 10px rgba(207, 16, 32, 0.2), 0 4px 20px rgba(0,0,0,0.5);
             transition: all 0.3s ease;
         }
         
-        .eu-card:hover {
-            border-color: rgba(16, 175, 207, 0.8);
-            box-shadow: inset 0 0 15px rgba(16, 175, 207, 0.4), 0 0 20px rgba(0, 191, 255, 0.2);
+        .molten-card:hover {
+            border-color: rgba(207, 16, 32, 0.8);
+            box-shadow: inset 0 0 15px rgba(207, 16, 32, 0.4), 0 0 20px rgba(255, 69, 0, 0.2);
             transform: translateY(-2px);
         }
-        .gm-card-eu {
-            background: rgba(25, 15, 30, 0.85);
+
+        .gm-card {
+            background: rgba(30, 25, 15, 0.85);
             backdrop-filter: blur(16px);
-            border: 2px solid rgba(187, 0, 255, 0.4);
-            box-shadow: inset 0 0 20px rgba(187, 0, 255, 0.15), 0 6px 30px rgba(0,0,0,0.6);
+            border: 2px solid rgba(255, 191, 0, 0.4);
+            box-shadow: inset 0 0 20px rgba(255, 191, 0, 0.15), 0 6px 30px rgba(0,0,0,0.6);
             transition: all 0.4s ease;
         }
 
-        .gm-card-eu:hover {
-            border-color: rgba(187, 0, 255, 0.9);
-            box-shadow: inset 0 0 30px rgba(187, 0, 255, 0.3), 0 0 25px rgba(187, 0, 255, 0.2);
+        .gm-card:hover {
+            border-color: rgba(255, 191, 0, 0.9);
+            box-shadow: inset 0 0 30px rgba(255, 191, 0, 0.3), 0 0 25px rgba(255, 191, 0, 0.2);
             transform: translateY(-3px);
         }
+
         .ember {
             position: fixed;
             background: rgba(255, 69, 0, 0.6);
@@ -160,49 +162,71 @@
             box-shadow: 0 0 8px #4ade80;
         }
 
+        .vital-scroll {
+            animation: ecg-scroll 2.2s linear infinite;
+            filter: drop-shadow(0 0 3px #4ade80);
+        }
+
+        @keyframes ecg-scroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-46px); }
+        }
+
+        .molten-seam {
+            background: linear-gradient(90deg, transparent, #ff8a3d, #ffbf00, #ff4500, transparent);
+            background-size: 250% 100%;
+            animation: seam-flow 7s linear infinite;
+            opacity: 0.85;
+        }
+
+        @keyframes seam-flow {
+            0% { background-position: 0% 0; }
+            100% { background-position: -250% 0; }
+        }
+
         .back-link {
             font-family: 'JetBrains Mono', monospace;
             font-size: 12px;
             letter-spacing: 0.15em;
             text-transform: uppercase;
-            color: #b9dbe6; 
+            color: #e6bdb9;
             opacity: 0.75;
             text-decoration: none;
             transition: opacity .25s ease, color .25s ease;
         }
-        .back-link:hover { opacity: 1; color: #00d5ff; }
+        .back-link:hover { opacity: 1; color: #ffbf00; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col font-body-md text-on-surface antialiased overflow-x-hidden relative">
     <div class="fixed inset-0 pointer-events-none z-0" id="Fuckassembers"></div>
 
     <nav class="relative z-20 w-full max-w-7xl mx-auto px-safe-margin pt-8 flex items-center justify-between">
-        <span class="font-data-label text-data-label uppercase text-[#80d8ff] opacity-60 tracking-widest">Season 10 &middot; EU</span>
+        <span class="font-data-label text-data-label uppercase text-tertiary opacity-60 tracking-widest">Season 10 &middot; NA</span>
         <a class="back-link" href="#">Hall of Ascendants (WIP) &rarr;</a>
     </nav>
 
     <main class="flex-grow z-10 w-full max-w-7xl mx-auto px-safe-margin py-stack-lg">
         <header class="mb-stack-lg text-center">
-            <h1 class="font-display-xl text-display-xl text-[#80d8ff] mb-stack-xs tracking-tighter uppercase drop-shadow-[0_0_10px_rgba(128,216,255,0.3)]">Project Ascendancy Roster</h1>
-            <p class="font-data-label text-data-label text-[#b9dbe6] uppercase">Season 10: EU</p>
+            <h1 class="font-display-xl text-display-xl text-primary mb-stack-xs tracking-tighter uppercase">Project Ascendancy Roster</h1>
+            <p class="font-data-label text-data-label text-tertiary uppercase">Season 10: NA</p>
         </header>
 
         <div class="mb-stack-lg flex justify-center w-full max-w-3xl mx-auto">
-            <div class="gm-card-eu rounded-xl p-stack-lg flex flex-col md:flex-row items-center gap-8 w-full relative overflow-hidden group">
-                <div class="absolute inset-0 bg-gradient-to-br from-[#bb00ff]/10 to-transparent pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity"></div>
+            <div class="gm-card rounded-xl p-stack-lg flex flex-col md:flex-row items-center gap-8 w-full relative overflow-hidden group">
+                <div class="absolute inset-0 bg-gradient-to-br from-secondary-container/10 to-transparent pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity"></div>
                 
-                <div class="w-[180px] h-[180px] shrink-0 rounded-full border-4 border-[#bb00ff]/60 overflow-hidden shadow-[inset_0_0_20px_rgba(187,0,255,0.4),0_0_15px_rgba(187,0,255,0.2)] bg-surface z-10">
+                <div class="w-[180px] h-[180px] shrink-0 rounded-full border-4 border-secondary-container/60 overflow-hidden shadow-[inset_0_0_20px_#ffbf0066,0_0_15px_#ffbf0044] bg-surface z-10">
                     <img src="Blaze.webp" alt="Game Master" class="w-full h-full object-cover">
                 </div>
                 
                 <div class="z-10 flex flex-col text-center md:text-left w-full">
-                    <h3 class="font-data-label text-data-label text-[#e580ff] mb-2 flex items-center justify-center md:justify-start gap-2 uppercase tracking-widest drop-shadow-[0_0_5px_rgba(187,0,255,0.5)]">
+                    <h3 class="font-data-label text-data-label text-secondary-container mb-2 flex items-center justify-center md:justify-start gap-2 uppercase tracking-widest drop-shadow-[0_0_5px_rgba(255,191,0,0.5)]">
                         <span class="material-symbols-outlined text-[16px]">visibility</span> The Game Master
                     </h3>
-                    <h2 class="font-display-xl text-[48px] text-[#f4d4ff] uppercase tracking-wide mb-2 leading-none">BLAZE</h2>
+                    <h2 class="font-display-xl text-[48px] text-secondary uppercase tracking-wide mb-2 leading-none">BLAZE</h2>
                     <p class="font-body-md text-on-surface-variant mb-4">Overseer and Game Master of Project Ascendancy.</p>
                     
-                    <div class="mt-auto pt-4 border-t border-[#bb00ff]/20 flex items-center justify-center md:justify-start gap-3">
+                    <div class="mt-auto pt-4 border-t border-secondary-container/20 flex items-center justify-center md:justify-start gap-3">
                         <div class="status-alive-dot"></div>
                         <span class="font-data-label text-data-label text-on-surface-variant uppercase tracking-wider">Status: Online & Watching</span>
                     </div>
@@ -212,72 +236,144 @@
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
             <script>
-                const euRoster = [
-                    { name: "Soshi", teammate: "UNKOWN", moveset: ["Bakugo"], avatar: "SoshiIcon.webp", icon: "New_Bakugo_Icon.webp" },
-                    { name: "Entity", teammate: "UNKOWN", moveset: ["Stain v2"], avatar: "Entity.webp", icon: "Stainv2Icon.webp" },
-                    { name: "Drago", teammate: "UNKOWN", moveset: ["Deku v2"], avatar: "drago.webp", icon: "New_Deku_V2_Icon.webp" },
-                    { name: "Ayanami", teammate: "UNKOWN", moveset: ["Dabi v2"], avatar: "Ayanami.webp", icon: "New_Dabi_V2_Icon.webp" },
-                    { name: "Okkotsu", teammate: "UNKOWN", moveset: ["Dabi v1"], avatar: "Okkotsu.webp", icon: "New_Dabi_Icon.webp" },
-                    { name: "Hex", teammate: "UNKOWN", moveset: ["Hawks"], avatar: "Hex.webp", icon: "WingedAssassinIcon.webp" },
-                    { name: "Riot", teammate: "UNKOWN", moveset: ["Bakugo"], avatar: "Riot.webp", icon: "New_Bakugo_Icon.webp" },
-                    { name: "Icarus", teammate: "UNKOWN", moveset: ["Todoroki v1"], avatar: "Icarus.webp", icon: "New_Todoroki_Icon.webp" },
-                    { name: "Yasso", teammate: "UNKOWN", moveset: ["Stain v2"], avatar: "yasso.webp", icon: "Stainv2Icon.webp" },
-                    { name: "Sunny", teammate: "UNKOWN", moveset: ["Shigaraki"], avatar: "Sunny.webp", icon: "Shigaraki.png" },
-                    { name: "Rabbit", teammate: "UNKOWN", moveset: ["Dabi v2"], avatar: "Rabbit.webp", icon: "New_Dabi_V2_Icon.webp" },
-                    { name: "jfvwwxj ", teammate: "UNKOWN", moveset: ["Todoroki v1"], avatar: "jv.webp", icon: "New_Todoroki_Icon.webp" },
+                const losersparticipating = [
+                    { name: "Soshi", teammate: "Karu", moveset: ["Todo v1"], quirk: "pyraxis", race: "dragon", avatar: "SoshiIcon.webp", icon: "New_Todoroki_Icon.webp", quirkIcon: "lorc/dragon-breath" },
+                    { name: "Echo", teammate: "Kaya", moveset: ["Denki"], quirk: "Electfication", race: "human", avatar: "Echo.webp", icon: "Denkiicon.webp", quirkIcon: "sbed/electric" },
+                    { name: "Kaya", teammate: "Echo", moveset: ["Deku v2"], quirk: "Ink", race: "ink demon", avatar: "Kaya.webp", icon: "New_Deku_V2_Icon.webp", quirkIcon: "lorc/ink-swirl" },
+                    { name: "Octocat", teammate: "UNKOWN", moveset: ["Toga"], quirk: "Witchcraft", race: "human", avatar: "Octocat.webp", icon: "Toga_Icon.webp", quirkIcon: "lorc/witch-flight" },
+                    { name: "Thalorin", teammate: "Icarus", moveset: ["Dabi v2"], quirk: "Shadow", race: "angel", avatar: "Thalorin.webp", icon: "New_Dabi_V2_Icon.webp", quirkIcon: "lorc/shadow-follower" },
+                    { name: "CamNeverEnding", teammate: "Soul", moveset: ["Dabi v1"], quirk: "Cremation", race: "human", avatar: "CNE.webp", icon: "New_Dabi_Icon.webp", quirkIcon: "lorc/arson" },
+                    { name: "Soul", teammate: "CamNeverEnding", moveset: ["Dabi v1"], quirk: "Cremation", race: "human", avatar: "Soul.webp", icon: "New_Dabi_Icon.webp", quirkIcon: "lorc/arson" },
+                    { name: "Icarus", teammate: "Thalorin", moveset: ["Deku v2"], quirk: "Adrenaline Rush", race: "human", avatar: "Icarus.webp", icon: "New_Deku_V2_Icon.webp", quirkIcon: "lorc/sprint" },
+                    { name: "Styx", teammate: "UNKOWN", moveset: ["Dabi v2"], quirk: "Hellfire", race: "human", avatar: "Styx.webp", icon: "New_Dabi_V2_Icon.webp", quirkIcon: "lorc/pyromaniac" },
+                    { name: "Karu", teammate: "UNKOWN", moveset: ["Dabi v1"], quirk: "Frost'n Cinder", race: "Björnian", avatar: "Karu.webp", icon: "New_Dabi_Icon.webp", quirkIcon: "lorc/frostfire" },
+                    { name: "Caleb", teammate: "UNKOWN", moveset: ["Stain v2"], quirk: "Bloodcurdle", race: "human", avatar: "Caleb.webp", icon: "New_Stain_V2.webp", quirkIcon: "skoll/blood" },
+                    { name: "Ryu", teammate: "UNKOWN", moveset: ["Dabi v2"], quirk: "Dragon Blade", race: "human", avatar: "Winston.webp", icon: "New_Stain_V2.webp", quirkIcon: "delapouite/ancient-sword" },
+                    { name: "X", teammate: "Mugi", moveset: ["Hawks"], quirk: "Heavenly grace", race: "angel", avatar: "X.webp", icon: "WingedAssassinIcon.webp", quirkIcon: "lorc/angel-wings" },
+                    { name: "Mugi", teammate: "X", moveset: ["Dabi v2"], quirk: "Divine flames", race: "dark angel", avatar: "Mugi.webp", icon: "New_Dabi_V2_Icon.webp", quirkIcon: "lorc/unfriendly-fire" }
                 ];
+                function gameIconUrl(path) {
+                    return `https://game-icons.net/icons/ffffff/transparent/1x1/${path || 'lorc/aura'}.svg`;
+                }
+
+                function getRaceIcon(race) {
+                    const iconMap = {
+                        human: 'person',
+                        demon: 'local_fire_department',
+                        dragon: 'local_fire_department',
+                        dragonkin: 'local_fire_department',
+                        drake: 'local_fire_department',
+                        undead: 'nightlight',
+                        vampire: 'nightlight',
+                        elf: 'nature',
+                        orc: 'fitness_center',
+                        beast: 'pets',
+                        golem: 'construction',
+                        angel: 'flare',
+                        celestial: 'flare',
+                        machine: 'settings',
+                        android: 'settings',
+                        spirit: 'auto_awesome'
+                    };
+                    if (!race) return 'shield';
+                    const key = race.toLowerCase();
+                    const match = Object.keys(iconMap).find(k => key.includes(k));
+                    return match ? iconMap[match] : 'shield';
+                }
 
                 const grid = document.querySelector('.grid');
                 
-                euRoster.forEach((player) => {
+                losersparticipating.forEach((loser, index) => {
                     const playercard = document.createElement('div');
-                    
-                    playercard.className = 'eu-card rounded-xl p-stack-md flex flex-col gap-stack-md relative overflow-hidden group';
+                    playercard.className = 'molten-card rounded-xl overflow-hidden flex flex-col relative group';
                     playercard.innerHTML = `
-                        <div class="absolute inset-0 bg-gradient-to-br from-[#1089cf]/10 to-transparent pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity"></div>
-                        
-                        <div class="flex items-start justify-between z-10">
-                            <div class="w-[150px] h-[150px] rounded-lg border border-[#3d505d]/50 overflow-hidden shadow-[inset_0_0_10px_rgba(16,137,207,0.3)] bg-surface-container">
-                                <img src="${player.avatar || 'images/default-avatar.jpg'}" alt="${player.name} Portrait" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-br from-primary-container/10 to-transparent pointer-events-none opacity-40 group-hover:opacity-100 transition-opacity z-0"></div>
+
+                        <div class="molten-seam h-[3px] w-full shrink-0 relative z-10"></div>
+
+                        <div class="relative h-[210px] w-full shrink-0">
+                            <div class="absolute inset-0 overflow-hidden">
+                                <img src="${loser.avatar || 'images/default-avatar.jpg'}" alt="${loser.name} Portrait" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-[1.06] transition-all duration-700 ease-out">
+                                <div class="absolute inset-0 bg-gradient-to-t from-surface via-surface/10 to-black/30"></div>
                             </div>
-                            
-                            <div class="w-[90px] h-[90px] rounded-full border border-[#1089cf]/50 overflow-hidden flex items-center justify-center bg-surface-container shadow-[inset_0_0_15px_rgba(16,137,207,0.4)]">
-                                <img src="${player.icon || 'images/default-icon.png'}" alt="${player.name} Icon" class="w-full h-full object-cover opacity-80 mix-blend-screen">
+
+                            <div class="absolute top-2 right-2 z-20 flex flex-col items-center gap-1">
+                                <div class="race-crest w-10 h-10 flex items-center justify-center bg-surface-container-high/90 border border-secondary-container/50 shadow-[0_0_10px_#ffbf0044,inset_0_0_6px_#00000077] group-hover:shadow-[0_0_14px_#ffbf0077,inset_0_0_6px_#00000077] group-hover:border-secondary-container/80 transition-shadow duration-500" style="clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);">
+                                    <span class="material-symbols-outlined text-[17px] text-secondary">${getRaceIcon(loser.race)}</span>
+                                </div>
+                                <span class="text-[7.5px] font-data-label uppercase tracking-wider text-on-surface bg-surface/80 px-1.5 py-[1px] rounded-sm shadow-sm whitespace-nowrap">${loser.race || 'Unknown'}</span>
                             </div>
+
+                            <div class="absolute -bottom-7 right-5 w-[64px] h-[64px] rounded-full border-2 border-primary-container/60 bg-surface-container-high shadow-[0_0_16px_#cf102066,inset_0_0_10px_#00000066] overflow-hidden z-20 group-hover:border-secondary-container/70 group-hover:shadow-[0_0_18px_#ffbf0055,inset_0_0_10px_#00000066] transition-colors duration-500">
+                                <img src="${loser.icon || 'images/default-icon.png'}" alt="${loser.name} Icon" class="w-full h-full object-cover opacity-90 mix-blend-screen">
+                            </div>
+
+                            <h2 class="absolute bottom-2 left-4 right-24 z-10 font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary uppercase tracking-wide leading-none drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">${loser.name}</h2>
                         </div>
 
-                        <div class="z-10 mt-stack-xs border-t border-[#3d505d]/30 pt-stack-xs flex-grow flex flex-col">
-                            <h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-[#00d5ff] uppercase tracking-wide mb-2">${player.name}</h2>
-                            
-                            <div class="space-y-4 mt-stack-md flex-grow flex flex-col">
-                                <div>
-                                    <h3 class="font-data-label text-data-label text-[#80d8ff] mb-1 uppercase opacity-80">Teammate</h3>
-                                    <p class="font-body-md text-on-surface-variant">${player.teammate}</p>
+                        <svg class="w-full h-[12px] block relative z-10" viewBox="0 0 400 12" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="crackGrad${index}" x1="0" y1="0" x2="1" y2="0">
+                                    <stop offset="0%" stop-color="#cf1020" stop-opacity="0"/>
+                                    <stop offset="50%" stop-color="#ff8a3d" stop-opacity="0.85"/>
+                                    <stop offset="100%" stop-color="#cf1020" stop-opacity="0"/>
+                                </linearGradient>
+                            </defs>
+                            <path d="M0,6 L150,6 L165,2 L178,10 L192,4 L210,8 L400,6" stroke="url(#crackGrad${index})" stroke-width="1.5" fill="none"/>
+                        </svg>
+
+                        <div class="p-stack-md pt-7 flex flex-col gap-4 flex-grow relative z-10">
+                            <div class="grid grid-cols-2 grid-rows-2 gap-4">
+                                <div class="flex flex-col gap-1 min-w-0">
+                                    <span class="font-data-label text-data-label text-tertiary uppercase opacity-70 flex items-center gap-1">
+                                        <span class="material-symbols-outlined text-[13px]">group</span>Teammate
+                                    </span>
+                                    <span class="font-body-md text-on-surface-variant text-sm truncate">${loser.teammate}</span>
                                 </div>
-                                
-                                <div class="flex-grow">
-                                    <h3 class="font-data-label text-data-label text-[#80d8ff] mb-2 uppercase opacity-80 flex items-center gap-2">
-                                        <span class="material-symbols-outlined text-[14px]">swords</span> Moveset
+
+                                <div class="flex flex-col gap-1 min-w-0 border-l border-outline-variant/20 pl-4">
+                                    <span class="font-data-label text-data-label text-tertiary uppercase opacity-70 flex items-center gap-1">
+                                        <span class="material-symbols-outlined text-[13px]">bolt</span>Quirk
+                                    </span>
+                                    <span class="font-body-md text-on-surface-variant text-sm truncate flex items-center gap-1.5">
+                                        <img src="${gameIconUrl(loser.quirkIcon)}" alt="" class="w-4 h-4 shrink-0 opacity-90">
+                                        ${loser.quirk || "Unknown"}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="pt-3 mt-auto border-t border-outline-variant/10 grid grid-cols-2 gap-4 items-start">
+                                <div>
+                                    <h3 class="font-data-label text-data-label text-tertiary mb-2 uppercase opacity-70 flex items-center gap-1">
+                                        <span class="material-symbols-outlined text-[13px]">swords</span>Moveset
                                     </h3>
                                     <ul class="flex flex-wrap gap-2">
-                                        ${player.moveset.map(move => `
-                                            <li class="bg-[#1a232c] border border-[#1089cf]/40 rounded px-3 py-1 font-data-label text-data-label text-[#00d5ff] whitespace-nowrap shadow-[inset_0_0_5px_rgba(16,137,207,0.2)]">
+                                        ${loser.moveset.map(move => `
+                                            <li class="relative pl-5 pr-3 py-1 bg-surface-container-high border border-outline-variant/30 rounded font-data-label text-data-label text-secondary whitespace-nowrap shadow-[inset_0_0_5px_#cf102011] before:content-[''] before:absolute before:left-2 before:top-1/2 before:-translate-y-1/2 before:w-[4px] before:h-[4px] before:rounded-full before:bg-primary-container before:shadow-[0_0_4px_#cf1020]">
                                                 ${move}
                                             </li>
                                         `).join('')}
                                     </ul>
                                 </div>
-                                
-                                <div class="flex items-center gap-3 pt-3 mt-auto border-t border-[#3d505d]/30">
-                                    <div class="status-alive-dot"></div>
-                                    <span class="font-data-label text-data-label text-on-surface-variant uppercase tracking-wider">Status: Alive</span>
+
+                                <div class="flex flex-col gap-1 min-w-0 border-l border-outline-variant/20 pl-4">
+                                    <span class="font-data-label text-data-label text-tertiary uppercase opacity-70 flex items-center gap-1">
+                                        <span class="material-symbols-outlined text-[13px]">monitor_heart</span>Vitals
+                                    </span>
+                                    <div class="flex items-center gap-2 mt-1">
+                                        <svg width="46" height="18" viewBox="0 0 46 18" class="shrink-0">
+                                            <g class="vital-scroll">
+                                                <path d="M0,9 L8,9 L11,2 L14,16 L17,4 L20,9 L46,9 L54,9 L57,2 L60,16 L63,4 L66,9 L92,9" stroke="#4ade80" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </g>
+                                        </svg>
+                                        <span class="w-2 h-2 rounded-full bg-[#4ade80] shadow-[0_0_6px_#4ade80] status-alive-dot"></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     `;
                     grid.appendChild(playercard);
                 });
-                
                 const embersContainer = document.getElementById('Fuckassembers');
                 for(let i=0; i<30; i++) {
                     let ember = document.createElement('div');
@@ -292,12 +388,12 @@
         </div>
     </main>
 
-    <footer class="bg-surface-container-lowest w-full py-12 mt-stack-lg border-t border-[#3d505d]/30 z-10 flex flex-col items-center justify-center gap-stack-xs px-safe-margin">
-        <h2 class="font-headline-lg text-headline-lg text-[#80d8ff] tracking-tighter uppercase mb-4 drop-shadow-[0_0_10px_rgba(128,216,255,0.2)]">PROJECT ASCENDANCY</h2>
+    <footer class="bg-surface-container-lowest w-full py-12 mt-stack-lg border-t border-outline-variant/10 z-10 flex flex-col items-center justify-center gap-stack-xs px-safe-margin">
+        <h2 class="font-headline-lg text-headline-lg text-primary tracking-tighter uppercase mb-4">PROJECT ASCENDANCY</h2>
         <nav class="flex flex-wrap justify-center gap-6 mb-6">
-            <a class="font-data-label text-data-label uppercase text-on-surface-variant hover:text-[#00d5ff] transition-colors opacity-80 hover:opacity-100" href="https://discord.gg/xCyGjKtGy" target="_blank">Discord</a>
-            <a class="font-data-label text-data-label uppercase text-on-surface-variant hover:text-[#00d5ff] transition-colors opacity-80 hover:opacity-100" href="https://www.youtube.com/@Soshi_kun" target="_blank">Youtube</a>
-            <a class="font-data-label text-data-label uppercase text-on-surface-variant hover:text-[#00d5ff] transition-colors opacity-80 hover:opacity-100" href="#" target="_blank">TikTok</a>
+            <a class="font-data-label text-data-label uppercase text-on-surface-variant hover:text-primary transition-colors opacity-80 hover:opacity-100" href="https://discord.gg/xCyGjKtGy" target="_blank">Discord</a>
+            <a class="font-data-label text-data-label uppercase text-on-surface-variant hover:text-primary transition-colors opacity-80 hover:opacity-100" href="https://www.youtube.com/@Soshi_kun" target="_blank">Youtube</a>
+            <a class="font-data-label text-data-label uppercase text-on-surface-variant hover:text-primary transition-colors opacity-80 hover:opacity-100" href="#" target="_blank">TikTok</a>
         </nav>
         <p class="font-data-label text-data-label uppercase text-on-surface-variant opacity-60">Soshi's Realm.</p>
     </footer>

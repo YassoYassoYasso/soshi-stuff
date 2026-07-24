@@ -201,6 +201,9 @@
         .region-name{ font-family:'JetBrains Mono', monospace; font-size:13px; letter-spacing:0.3em; text-transform:uppercase; color:#e6bdb9; }
         .region-cards{ display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:1.5rem; }
 
+        /* --accent / --accent-light / --accent-soft are set INLINE per card from each
+           season+region's `gradient` array in the data below — these are just fallbacks
+           in case a region is ever missing one. */
         .champion-card{
             --accent:var(--ember-red);
             --accent-light:#ffd9a0;
@@ -215,7 +218,6 @@
             transition:transform .4s ease, box-shadow .4s ease, border-color .4s ease;
             box-shadow:0 8px 30px rgba(0,0,0,0.5), inset 0 0 20px rgba(0,0,0,0.4);
         }
-        .champion-card.region-eu{ --accent:var(--eu-glow); --accent-light:#eaf7ff; --accent-soft:rgba(143,214,255,0.22); }
         .champion-card::before{
             content:''; position:absolute; inset:0;
             background:radial-gradient(circle at 50% 0%, var(--accent-soft), transparent 60%);
@@ -243,7 +245,7 @@
         .crest-shield-outer{
             position:absolute; inset:0;
             clip-path:polygon(50% 0%, 100% 18%, 100% 68%, 50% 100%, 0% 68%, 0% 18%);
-            background:linear-gradient(160deg, var(--accent), rgba(0,0,0,0.15));
+            background:linear-gradient(160deg, var(--accent), var(--accent-light));
         }
         .crest-shield{
             position:absolute; inset:4px;
@@ -274,8 +276,37 @@
         }
         .card-pedestal{
             position:absolute; left:18%; right:18%; bottom:0; height:3px;
-            background:linear-gradient(90deg, transparent, var(--accent), transparent);
+            background:linear-gradient(90deg, transparent, var(--accent), var(--accent-light));
             filter:blur(1px); opacity:0.85;
+        }
+
+        /* MISSING treatment — desaturating the whole card with one filter means it goes
+           black-and-white regardless of whichever gradient that season/region was given,
+           no color overrides needed. The stamp is the only new element. */
+        .champion-card.is-missing{
+            filter:grayscale(1) contrast(1.05) brightness(0.88);
+        }
+        .champion-card.is-missing .crest-glow{ animation:none; opacity:0.18; }
+        .champion-card.is-missing .crest-flame{ opacity:0.35; }
+
+        .missing-stamp{
+            position:absolute;
+            top:36%; left:50%;
+            width:220%;
+            transform:translate(-50%, -50%) rotate(-45deg);
+            text-align:center;
+            font-family:'Anton', sans-serif;
+            font-size:24px;
+            letter-spacing:0.5em;
+            text-transform:uppercase;
+            color:#f2f2f2;
+            padding:0.5rem 0;
+            border-top:3px solid rgba(242,242,242,0.85);
+            border-bottom:3px solid rgba(242,242,242,0.85);
+            background:rgba(0,0,0,0.35);
+            text-shadow:0 2px 10px rgba(0,0,0,0.8);
+            pointer-events:none;
+            z-index:5;
         }
 
         @media (prefers-reduced-motion: reduce){
@@ -323,34 +354,50 @@
     </footer>
 
     <script>
-        /*The idea here is to make a constant and each item inside the constant is going to be a season and in each season its going to be an array of players who are winners, both in TWO arrays of NA and EU*/
+        /* The idea here is to make a constant and each item inside the constant is going to be a
+           season, and in each season there's an NA and EU region. Each region now also carries
+           its own `gradient` — a 2-color array — so NA and EU (and every season) can each have
+           their own distinct color mix without touching any CSS. That gradient drives the shield,
+           the ribbon, the card glow, and the pedestal light all at once. */
         const hallOfAscendants = [
             {
                 season: 0,
                 subtitle: "The First Ascension",
                 regions: {
-                    NA: [
-                        { name: "Mugi", teammate: "Riot", title: "Duo Champions — Bakugo / Dabi v1", avatar: "mugis0.png" },
-                        { name: "Riot", teammate: "Mugi", title: "Duo Champions — Dabi v1 / Bakugo", avatar: "RiotS0.png" }
-                    ],
-                    EU: [
-                        { name: "Ashborn", teammate: "Corvid", title: "Duo Champions — Hawks / Kurogiri", avatar: "images/ashborn.jpg" },
-                        { name: "Corvid", teammate: "Ashborn", title: "Duo Champions — Hawks / Kurogiri", avatar: "images/corvid.jpg" }
-                    ]
+                    NA: {
+                        gradient: ["#ff5a2e", "#ffbf00"],
+                        champions: [
+                            { name: "Mugi", teammate: "Riot", title: "Duo Champions — Bakugo / Dabi v1", avatar: "mugis0.png" },
+                            { name: "Riot", teammate: "Mugi", title: "Duo Champions — Dabi v1 / Bakugo", avatar: "RiotS0.png" }
+                        ]
+                    },
+                    EU: {
+                        gradient: ["#8fd6ff", "#eaf7ff"],
+                        champions: [
+                            { name: "Ashborn", teammate: "Corvid", title: "Duo Champions — Hawks / Kurogiri", avatar: "images/ashborn.jpg", missing: true },
+                            { name: "Corvid", teammate: "Ashborn", title: "Duo Champions — Hawks / Kurogiri", avatar: "images/corvid.jpg" }
+                        ]
+                    }
                 }
             },
             {
                 season: 1,
                 subtitle: "The Second Ascension",
                 regions: {
-                    NA: [
-                        { name: "Ferrow", teammate: "Quill", title: "Duo Champions — Dabi / Shigaraki", avatar: "images/ferrow.jpg" },
-                        { name: "Quill", teammate: "Ferrow", title: "Duo Champions — Dabi / Shigaraki", avatar: "images/quill.jpg" }
-                    ],
-                    EU: [
-                        { name: "Wraithe", teammate: "Halcyon", title: "Duo Champions — Stain v2 / Todoroki", avatar: "images/wraithe.jpg" },
-                        { name: "Halcyon", teammate: "Wraithe", title: "Duo Champions — Stain v2 / Todoroki", avatar: "images/halcyon.jpg" }
-                    ]
+                    NA: {
+                        gradient: ["#ff5a2e", "#ffbf00"],
+                        champions: [
+                            { name: "Ferrow", teammate: "Quill", title: "Duo Champions — Dabi / Shigaraki", avatar: "images/ferrow.jpg" },
+                            { name: "Quill", teammate: "Ferrow", title: "Duo Champions — Dabi / Shigaraki", avatar: "images/quill.jpg" }
+                        ]
+                    },
+                    EU: {
+                        gradient: ["#8fd6ff", "#eaf7ff"],
+                        champions: [
+                            { name: "Wraithe", teammate: "Halcyon", title: "Duo Champions — Stain v2 / Todoroki", avatar: "images/wraithe.jpg" },
+                            { name: "Halcyon", teammate: "Wraithe", title: "Duo Champions — Stain v2 / Todoroki", avatar: "images/halcyon.jpg" }
+                        ]
+                    }
                 }
             }
 
@@ -359,23 +406,36 @@
                 season: 2,
                 subtitle: "The Third Ascension",
                 regions: {
-                    NA: [
-                        { name: "", teammate: "", title: "", avatar: "" },
-                        { name: "", teammate: "", title: "", avatar: "" }
-                    ],
-                    EU: [
-                        { name: "", teammate: "", title: "", avatar: "" },
-                        { name: "", teammate: "", title: "", avatar: "" }
-                    ]
+                    NA: {
+                        gradient: ["#colorOne", "#colorTwo"],
+                        champions: [
+                            { name: "", teammate: "", title: "", avatar: "" },
+                            { name: "", teammate: "", title: "", avatar: "", missing: true }
+                        ]
+                    },
+                    EU: {
+                        gradient: ["#colorOne", "#colorTwo"],
+                        champions: [
+                            { name: "", teammate: "", title: "", avatar: "" },
+                            { name: "", teammate: "", title: "", avatar: "" }
+                        ]
+                    }
                 }
             }
             */
+            // Add `missing: true` to any champion object above and their card automatically
+            // goes black-and-white with a "Missing" stamp across it — no other data needed.
         ];
 
-        const REGION_ACCENTS = {
-            NA: { flame: "#ff5a2e", cardClass: "" },
-            EU: { flame: "#8fd6ff", cardClass: "region-eu" }
-        };
+        // Turns "#ff5a2e" into "rgba(255, 90, 46, alpha)" so every glow/soft-fill can be
+        // derived straight from a region's gradient colors instead of being hardcoded.
+        function hexToRgba(hex, alpha) {
+            let c = hex.replace('#', '');
+            if (c.length === 3) c = c.split('').map(ch => ch + ch).join('');
+            const num = parseInt(c, 16);
+            const r = (num >> 16) & 255, g = (num >> 8) & 255, b = num & 255;
+            return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+        }
 
         const SIGIL_SVG = `
             <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
@@ -384,10 +444,13 @@
             </svg>
         `;
 
-        function championCard(champ, regionKey) {
-            const accent = REGION_ACCENTS[regionKey] || REGION_ACCENTS.NA;
+        function championCard(champ, gradient) {
+            const [colorOne, colorTwo] = gradient;
+            const accentVars = `--accent:${colorOne}; --accent-light:${colorTwo}; --accent-soft:${hexToRgba(colorOne, 0.25)};`;
+            const cardClass = champ.missing ? 'champion-card is-missing' : 'champion-card';
+            const missingStamp = champ.missing ? `<div class="missing-stamp" aria-hidden="true">Missing</div>` : '';
             return `
-                <div class="champion-card ${accent.cardClass}">
+                <div class="${cardClass}" style="${accentVars}">
                     <span class="corner corner-tl" aria-hidden="true"></span>
                     <span class="corner corner-tr" aria-hidden="true"></span>
                     <span class="corner corner-bl" aria-hidden="true"></span>
@@ -403,6 +466,7 @@
                             <path d="M60 50 C42 30 30 34 8 8 C30 16 46 10 60 30 C74 10 90 16 112 8 C90 34 78 30 60 50 Z" />
                         </svg>
                     </div>
+                    ${missingStamp}
 
                     <div class="rank-ribbon">Champion</div>
                     <h3 class="champion-name">${champ.name}</h3>
@@ -413,16 +477,16 @@
             `;
         }
 
-        function regionBlock(regionKey, champions) {
-            const accent = REGION_ACCENTS[regionKey] || REGION_ACCENTS.NA;
+        function regionBlock(regionKey, regionData) {
+            const gradient = regionData.gradient || ["#ff5a2e", "#ffbf00"];
             return `
                 <div class="region-block">
                     <div class="region-header">
-                        <span class="region-flame" style="--flame-color:${accent.flame}"></span>
+                        <span class="region-flame" style="--flame-color:${gradient[0]}"></span>
                         <span class="region-name">${regionKey} Region</span>
                     </div>
                     <div class="region-cards">
-                        ${champions.map(c => championCard(c, regionKey)).join('')}
+                        ${regionData.champions.map(c => championCard(c, gradient)).join('')}
                     </div>
                 </div>
             `;
